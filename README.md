@@ -4,7 +4,13 @@
 
 3. All our components will get deploy into `sre-techtask` namespace as we have mentioned the same in `values.yaml` file.
 
-4. To deploy this helm chart with default values, you can simply run `helm install <app name> <chart location>`
+4. If we are going to run this stack on minikube, then we need to enable ingress & metrics-server addon on minikube. to do that run below command.
+```
+$ minikube addons enable ingress
+$ minikube addons enable metric-server
+```
+
+5. To deploy this helm chart with default values, you can simply run `helm install <app name> <chart location>`
 
 **Note:** app name can be anything this is a reference to helm and the same name used to create resources as well.
 
@@ -12,23 +18,22 @@
 $ helm install bedeapp sumanth-task/
 ```
 
-5. If you want to deploy this chart with custom values, you can use `override-values.yaml` file while deploying. In this override file you can mention only the values you want to override. remaing will be taken from default values.
+6. If you want to deploy this chart with custom values, you can use `override-values.yaml` file while deploying. In this override file you can mention only the values you want to override. remaing will be taken from default values.
 
 ```
 $ helm install bedeapp sumanth-task/ -f sumanth-task/override-values.yaml
 ```
 
-6. To verify the created resources, you can run `kubectl` command `kubectl get all -n <namespace name>`. Here provide the namespace name which you have used in values file. This will show all resources except ingress component. to view ingress, run `kubectl get ing -n <namespace name>`
+7. To verify the created resources, you can run `kubectl` command `kubectl get all -n <namespace name>`. Here provide the namespace name which you have used in values file. This will show all resources except ingress component. to view ingress, run `kubectl get ing -n <namespace name>`
 ```
+$ kubectl get all -n sre-techtask
 $ kubectl get ing -n sre-techtask
 ```
 
-7. If we are running this stack on minikube, then we also need to enable ingress add on on minikube. to do that run below command.
-```
-$ minikube addons enable ingress
-```
-
 8. Since we have given dummy url for ingress host, we need to map local dns for the same. Then only our application will work on url. for that run get ingress comand and append the hostname and IP address in `/etc/hosts` file.
+
+**Note:** Sometimes it will take couple of mints time to show the IP address after the deployment. so please check in 1 or 2 mints to see the IP address. 
+
 ```
 $ k get ing -n sre-techtask
 
