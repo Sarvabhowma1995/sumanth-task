@@ -10,9 +10,7 @@ metadata:
   namespace: default
   {{- end }}
 spec:
-  {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
-  {{- end }}
   selector:
     matchLabels:
       {{- include "bede-task.selectorLabels" . | nindent 6 }}
