@@ -4,10 +4,14 @@ install-addons: ##Install required addons for minikube cluster
 	@minikube addons enable metrics-server
 
 install-chart: install-addons
-	@helm upgrade --install $(app_name) $(namespace)
+	@helm upgrade --install $(app_name) $(chart_loc)
 
 uninstall-chart:
 	@ helm uninstall $(app_name)
+
+
+### To run this filr run below command and replace the last dir from /root/sumanth-task to actual place where the helm chart code resides.
+## make install-chart app_name=bede-app chart_loc=/root/sumanth-task
 
 ## Improvements 
 ## 1) need to check whether helm installed in the system or not of not install it.
